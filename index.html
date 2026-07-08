@@ -1,51 +1,70 @@
 <!DOCTYPE html>
-<html lang="em">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"content="width=device-width,initial-scale=1.0">
-    <tirle>blog do theuxx</tirle>
-    <style>
-        header{
-            background-color: rgb(253, 254, 254);
-            color: black;
-            text-align: center;
-            max-width: 800px;
-            margin: auto;
-            padding: 16px;
-        }
-        main{
-            background-color: rgb(249, 251, 252);
-            color: black;
-            max-width: 800px;
-            margin: auto;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultura do Grau - Arte sobre duas rodas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <main>
-        <p>"Grau de bike" (ou simplesmente "dar um grau") é uma expressão muito popular no Brasil para a manobra de empinar a bicicleta, ou seja, equilibrar-se apenas na roda traseira enquanto pedalas.
 
-Essa prática se tornou uma verdadeira cultura urbana entre os jovens brasileiros, envolvendo redes sociais, encontros de ciclistas e customização de bicicletas.
+    <header>
+        <div class="logo">Grau<span>Bike</span></div>
+        <nav>
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#galeria">Galeria</a></li>
+            </ul>
+        </nav>
+    </header>
 
-Aqui está um resumo de como funciona essa cultura no Brasil:
+    <main class="container">
+        <section id="sobre" class="card">
+            <h1>A Arte do Grau</h1>
+            <p>Mais do que empinar, o grau é estilo de vida, equilíbrio e controle total da bike. Uma cultura que cresce a cada dia nas ruas e nas pistas.</p>
+            
+            <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?q=80&w=600&auto=format&fit=crop" alt="Manobra de grau de bike" id="foto-grau">
+            </div>
 
-🚲 Tipos de Bicicletas Mais Usadas
-Embora dê para tentar com quase qualquer bike, duas vertentes dominam o cenário do grau:
-
-Bikes de "Grau" de Favela / Urbanas: Geralmente são montadas com quadros rígidos (estilo Gios, Vikingx ou as clássicas Poti e Monark cargueiras modificadas). Elas costumam ter o banco bem inclinado para trás para ajudar no encaixe do corpo e freios hidráulicos muito precisos.
-
-Bikes de Wheeling: Uma modalidade esportiva mais técnica, onde o objetivo não é só empinar em linha reta, mas fazer manobras complexas como tirar as mãos, apoiar os pés no banco ou no quadro e fazer curvas fechadas.
-
-🛑 Cuidados e Segurança
-Embora seja muito popular, a prática exige bastante atenção:
-
-Uso de Equipamentos: Capacete, luvas e tênis fechados são essenciais, já que as quedas para trás (os famosos "capotes") acontecem bastante no início.
-
-O Controle do Freio: O maior segredo do grau não é a força para subir a bike, mas sim o controle do freio traseiro. É ele que impede a bicicleta de virar para trás; se você sentir que vai cair, basta acionar o freio.
-
-Local Adequado: Praticar em vias públicas movimentadas pode ser perigoso para o ciclista e para os pedestres. O ideal é treinar em locais planos, abertos e sem trânsito, como praças vazias, quadras ou pistas específicas.
-
-Você já está conseguindo equilibrar por alguns metros ou está mudando as peças da bike para começar a treinar?
+            <div class="actions">
+                <button id="btn-curtir" onclick="toggleCurtida()">
+                    <i class="fa-regular fa-heart" id="icone-coracao"></i> 
+                    <span id="texto-curtidas">Curtir</span> 
+                    <span id="contador">0</span>
+                </button>
+            </div>
+        </section>
     </main>
+
+    <footer>
+        <p>&copy; 2026 GrauBike. Feito para a comunidade.</p>
+    </footer>
+
+    <script>
+        let curtido = false;
+        let totalCurtidas = 0;
+
+        function toggleCurtida() {
+            const botao = document.getElementById('btn-curtir');
+            const icone = document.getElementById('icone-coracao');
+            const contador = document.getElementById('contador');
+            
+            if (!curtido) {
+                totalCurtidas++;
+                icone.className = "fa-solid fa-heart"; // Muda para coração cheio
+                botao.classList.add('liked');
+                curtido = true;
+            } else {
+                totalCurtidas--;
+                icone.className = "fa-regular fa-heart"; // Volta para coração vazio
+                botao.classList.remove('liked');
+                curtido = false;
+            }
+            
+            contador.innerText = totalCurtidas;
+        }
+    </script>
 </body>
-<html>
+</html>
