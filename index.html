@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cultura do Grau - Arte sobre duas rodas</title>
+    <title>Grau de Bike - Arte sobre duas rodas</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -17,15 +17,30 @@
                 <li><a href="#galeria">Galeria</a></li>
             </ul>
         </nav>
+        <!-- Botão para ativar modo escuro -->
+        <button id="btn-tema" onclick="toggleTema()" aria-label="Alternar modo escuro">
+            <i class="fa-solid fa-moon" id="icone-tema"></i>
+        </button>
     </header>
 
     <main class="container">
         <section id="sobre" class="card">
-            <h1>A Arte do Grau</h1>
-            <p>Mais do que empinar, o grau é estilo de vida, equilíbrio e controle total da bike. Uma cultura que cresce a cada dia nas ruas e nas pistas.</p>
+            <h1>Grau de Bike</h1>
+            <p class="autor">Por: <span>Nome do Autor</span></p>
+            
+            <p class="descricao">
+                Mais do que empinar, o grau é estilo de vida, equilíbrio e controle total da bike. Uma cultura que cresce a cada dia nas ruas e nas pistas.
+            </p>
             
             <div class="image-container">
-                <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?q=80&w=600&auto=format&fit=crop" alt="Manobra de grau de bike" id="foto-grau">
+                <img src="Gemini_Generated_Image_6lyoph6lyoph6lyo.png" alt="Manobra de grau de bike" id="foto-grau">
+            </div>
+
+            <!-- Link direcionando para a fonte de pesquisa -->
+            <div class="fonte-link">
+                <a href="https://pt.wikipedia.org/wiki/Grau_de_bike" target="_blank" rel="noopener noreferrer" class="btn-fonte">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver fonte de pesquisa
+                </a>
             </div>
 
             <div class="actions">
@@ -53,17 +68,31 @@
             
             if (!curtido) {
                 totalCurtidas++;
-                icone.className = "fa-solid fa-heart"; // Muda para coração cheio
+                icone.className = "fa-solid fa-heart";
                 botao.classList.add('liked');
                 curtido = true;
             } else {
                 totalCurtidas--;
-                icone.className = "fa-regular fa-heart"; // Volta para coração vazio
+                icone.className = "fa-regular fa-heart";
                 botao.classList.remove('liked');
                 curtido = false;
             }
             
             contador.innerText = totalCurtidas;
+        }
+
+        // Função para alternar o Modo Escuro / Claro
+        function toggleTema() {
+            const body = document.body;
+            const iconeTema = document.getElementById('icone-tema');
+
+            body.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                iconeTema.className = 'fa-solid fa-sun';
+            } else {
+                iconeTema.className = 'fa-solid fa-moon';
+            }
         }
     </script>
 </body>
