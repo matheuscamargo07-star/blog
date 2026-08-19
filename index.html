@@ -7,18 +7,20 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="light-mode">
+
+    <!-- Círculo para o efeito de expansão do tema -->
+    <div id="theme-overlay"></div>
 
     <header>
         <div class="logo">Grau<span>Bike</span></div>
         <nav>
             <ul>
                 <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#galeria">Galeria</a></li>
+                <li><a href="#detalhes">Cultura & Equipamentos</a></li>
             </ul>
         </nav>
-        <!-- Botão para ativar modo escuro -->
-        <button id="btn-tema" onclick="toggleTema()" aria-label="Alternar modo escuro">
+        <button id="btn-tema" onclick="toggleTema(event)" aria-label="Alternar modo escuro">
             <i class="fa-solid fa-moon" id="icone-tema"></i>
         </button>
     </header>
@@ -29,14 +31,26 @@
             <p class="autor">Por: <span>Nome do Autor</span></p>
             
             <p class="descricao">
-                Mais do que empinar, o grau é estilo de vida, equilíbrio e controle total da bike. Uma cultura que cresce a cada dia nas ruas e nas pistas.
+                Mais do que empinar, o grau é estilo de vida, equilíbrio e controle total da bike. Uma cultura urbana em constante crescimento, onde praticantes demonstram habilidade, foco e dedicação.
             </p>
             
             <div class="image-container">
                 <img src="Gemini_Generated_Image_6lyoph6lyoph6lyo.png" alt="Manobra de grau de bike" id="foto-grau">
             </div>
 
-            <!-- Link direcionando para a fonte de pesquisa -->
+            <!-- Seção de mais informações -->
+            <article id="detalhes" class="info-extra">
+                <h2>Como Funciona a Cultura do Grau</h2>
+                <p>
+                    A prática consiste em manter a bicicleta equilibrada na roda traseira utilizando apenas o controle do freio traseiro, o peso do corpo e a pedalada. 
+                </p>
+                <ul class="lista-info">
+                    <li><strong>Equipamento essencial:</strong> Freios bem regulados (hidráulicos ou V-brake) são fundamentais para o controle e a segurança.</li>
+                    <li><strong>Segurança:</strong> O uso de capacete e equipamentos de proteção é recomendado durante os treinos.</li>
+                    <li><strong>Comunidade:</strong> Encontros urbanos e pistas organizadas reúnem praticantes para troca de experiências e aprendizado de novas manobras.</li>
+                </ul>
+            </article>
+
             <div class="fonte-link">
                 <a href="https://pt.wikipedia.org/wiki/Grau_de_bike" target="_blank" rel="noopener noreferrer" class="btn-fonte">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver fonte de pesquisa
@@ -81,19 +95,286 @@
             contador.innerText = totalCurtidas;
         }
 
-        // Função para alternar o Modo Escuro / Claro
-        function toggleTema() {
+        // Função para alternar o modo com transição em expansão circular
+        function toggleTema(event) {
             const body = document.body;
             const iconeTema = document.getElementById('icone-tema');
+            const overlay = document.getElementById('theme-overlay');
 
-            body.classList.toggle('dark-mode');
+            // Posiciona o centro da animação no botão
+            const rect = event.currentTarget.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
 
-            if (body.classList.contains('dark-mode')) {
-                iconeTema.className = 'fa-solid fa-sun';
-            } else {
-                iconeTema.className = 'fa-solid fa-moon';
-            }
+            overlay.style.left = `${x}px`;
+            overlay.style.top = `${y}px`;
+
+            const isDark = body.classList.contains('dark-mode');
+            overlay.style.backgroundColor = isDark ? '#f8fafc' : '#0f172a';
+
+            overlay.classList.add('expanding');
+
+            setTimeout(() => {
+                body.classList.toggle('dark-mode');
+                body.classList.toggle('light-mode');
+
+                if (body.classList.contains('dark-mode')) {
+                    iconeTema.className = 'fa-solid fa-sun';
+                } else {
+                    iconeTema.className = 'fa-solid fa-moon';
+                }
+
+                overlay.classList.remove('expanding');
+            }, 400);
         }
     </script>
 </body>
 </html>
+Código CSS (style.css)
+CSS
+:root {
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-color: #334155;
+    --title-color: #0f172a;
+    --subtext-color: #64748b;
+    --header-bg: #ffffff;
+    --border-color: #e2e8f0;
+    --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+    --shadow-img: 0 12px 35px -5px rgba(0, 0, 0, 0.25), 0 0 15px rgba(56, 189, 248, 0.2);
+}
+
+body.dark-mode {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #cbd5e1;
+    --title-color: #f8fafc;
+    --subtext-color: #94a3b8;
+    --header-bg: #1e293b;
+    --border-color: #334155;
+    --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+    --shadow-img: 0 15px 40px -5px rgba(0, 0, 0, 0.7), 0 0 20px rgba(56, 189, 248, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Efeito de Expansão do Tema */
+#theme-overlay {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+#theme-overlay.expanding {
+    transform: translate(-50%, -50%) scale(300);
+}
+
+header {
+    background-color: var(--header-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--title-color);
+}
+
+.logo span {
+    color: #38bdf8;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+}
+
+nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+#btn-tema {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.6rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#btn-tema:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+.container {
+    flex: 1;
+    max-width: 750px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    width: 100%;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-color);
+    text-align: justify;
+}
+
+.card h1 {
+    font-size: 2.2rem;
+    color: var(--title-color);
+    text-align: center;
+    margin-bottom: 0.2rem;
+}
+
+.autor {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--subtext-color);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.autor span {
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+.descricao {
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+/* Destaque com Box-Shadow na Imagem */
+.image-container {
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden;
+    border-radius: 14px;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-img);
+    border: 2px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.image-container:hover {
+    transform: translateY(-3px);
+}
+
+/* Seção de Informações Adicionais */
+.info-extra {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-extra h2 {
+    font-size: 1.4rem;
+    color: var(--title-color);
+    margin-bottom: 0.8rem;
+}
+
+.lista-info {
+    margin-top: 0.8rem;
+    padding-left: 1.2rem;
+}
+
+.lista-info li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.fonte-link {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.btn-fonte {
+    display: inline-block;
+    color: #38bdf8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    border: 1px dashed #38bdf8;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+}
+
+#btn-curtir {
+    background-color: transparent;
+    border: 2px solid #ef4444;
+    color: #ef4444;
+    padding: 0.6rem 1.6rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+}
+
+#btn-curtir.liked {
+    background-color: #ef4444;
+    color: #ffffff;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--subtext-color);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border-color);
+}
