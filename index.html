@@ -9,9 +9,6 @@
 </head>
 <body class="light-mode">
 
-    <!-- Círculo para o efeito de expansão do tema -->
-    <div id="theme-overlay"></div>
-
     <header>
         <div class="logo">Grau<span>Bike</span></div>
         <nav>
@@ -20,22 +17,20 @@
                 <li><a href="#detalhes">Cultura & Equipamentos</a></li>
             </ul>
         </nav>
-        <button id="btn-tema" onclick="toggleTema(event)" aria-label="Alternar modo escuro">
-            <i class="fa-solid fa-moon" id="icone-tema"></i>
-        </button>
     </header>
 
-    <main class="container">
+    <main class="main-wrapper">
         <section id="sobre" class="card">
+            
             <header class="card-header">
                 <h1>Grau de Bike</h1>
                 <p class="autor">Por: <span>Nome do Autor</span></p>
                 <p class="descricao">
-                    Mais do que empinar, o grau é estilo de vida, equilíbrio e controle total da bike. Uma cultura urbana em constante crescimento, onde praticantes demonstram habilidade, foco e dedicação.
+                    Mais do que empinar, o grau é um estilo de vida que envolve equilíbrio, foco e controle total da bicicleta. Trata-se de uma cultura urbana em constante crescimento, reunindo praticantes que se dedicam diariamente ao aperfeiçoamento das manobras.
                 </p>
             </header>
             
-            <div class="card-grid">
+            <div class="card-content">
                 <div class="image-container">
                     <img src="Gemini_Generated_Image_6lyoph6lyoph6lyo.png" alt="Manobra de grau de bike" id="foto-grau">
                 </div>
@@ -43,31 +38,31 @@
                 <article id="detalhes" class="info-extra">
                     <h2>Como Funciona a Cultura do Grau</h2>
                     <p>
-                        A prática consiste em manter a bicicleta equilibrada na roda traseira utilizando apenas o controle do freio traseiro, o peso do corpo e a pedalada. 
+                        A prática consiste em manter a bicicleta equilibrada na roda traseira combinando o uso do freio traseiro, o peso do corpo e o ritmo da pedalada.
                     </p>
+                    
                     <ul class="lista-info">
-                        <li><strong>Equipamento essencial:</strong> Freios bem regulados (hidráulicos ou V-brake) são fundamentais para o controle e a segurança.</li>
-                        <li><strong>Segurança:</strong> O uso de capacete e equipamentos de proteção é recomendado durante os treinos.</li>
-                        <li><strong>Comunidade:</strong> Encontros urbanos e pistas organizadas reúnem praticantes para troca de experiências e aprendizado de novas manobras.</li>
+                        <li><strong>Equipamento Essencial:</strong> Freios bem regulados (hidráulicos ou V-brake) são indispensáveis para garantir a precisão dos movimentos e a segurança do piloto.</li>
+                        <li><strong>Segurança:</strong> O uso de capacete, luvas e equipamentos de proteção é altamente recomendado durante os treinos e manobras.</li>
+                        <li><strong>Comunidade:</strong> Encontros urbanos e espaços dedicados reúnem praticantes para troca de experiências, aprendizado e fortalecimento da cena local.</li>
                     </ul>
+
+                    <div class="fonte-area">
+                        <a href="https://pt.wikipedia.org/wiki/Grau_de_bike" target="_blank" rel="noopener noreferrer" class="btn-fonte">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Acessar fonte de pesquisa (Wikipedia)
+                        </a>
+                    </div>
                 </article>
             </div>
 
-            <div class="card-footer">
-                <div class="fonte-link">
-                    <a href="https://pt.wikipedia.org/wiki/Grau_de_bike" target="_blank" rel="noopener noreferrer" class="btn-fonte">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver fonte de pesquisa
-                    </a>
-                </div>
-
-                <div class="actions">
-                    <button id="btn-curtir" onclick="toggleCurtida()">
-                        <i class="fa-regular fa-heart" id="icone-coracao"></i> 
-                        <span id="texto-curtidas">Curtir</span> 
-                        <span id="contador">0</span>
-                    </button>
-                </div>
+            <div class="actions">
+                <button id="btn-curtir" onclick="toggleCurtida()">
+                    <i class="fa-regular fa-heart" id="icone-coracao"></i> 
+                    <span id="texto-curtidas">Curtir</span> 
+                    <span id="contador">0</span>
+                </button>
             </div>
+
         </section>
     </main>
 
@@ -97,39 +92,6 @@
             }
             
             contador.innerText = totalCurtidas;
-        }
-
-        // Função para alternar o modo com transição em expansão circular
-        function toggleTema(event) {
-            const body = document.body;
-            const iconeTema = document.getElementById('icone-tema');
-            const overlay = document.getElementById('theme-overlay');
-
-            // Posiciona o centro da animação no botão
-            const rect = event.currentTarget.getBoundingClientRect();
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
-
-            overlay.style.left = `${x}px`;
-            overlay.style.top = `${y}px`;
-
-            const isDark = body.classList.contains('dark-mode');
-            overlay.style.backgroundColor = isDark ? '#f1f5f9' : '#0f172a';
-
-            overlay.classList.add('expanding');
-
-            setTimeout(() => {
-                body.classList.toggle('dark-mode');
-                body.classList.toggle('light-mode');
-
-                if (body.classList.contains('dark-mode')) {
-                    iconeTema.className = 'fa-solid fa-sun';
-                } else {
-                    iconeTema.className = 'fa-solid fa-moon';
-                }
-
-                overlay.classList.remove('expanding');
-            }, 400);
         }
     </script>
 </body>
